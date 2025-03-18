@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Registration</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<h2>Welcome, <span th:text="${student.name}"></span>!</h2>
+<p>Email: <span th:text="${student.email}"></span></p>
+
+<h3>Available Courses</h3>
+<table>
+    <tr>
+        <th>Course Name</th>
+        <th>Available Seats</th>
+        <th>Fees</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="course : ${courses}">
+        <td th:text="${course.name}"></td>
+        <td th:text="${course.availableSeats}"></td>
+        <td th:text="${course.fees}"></td>
+        <td>
+            <form th:action="@{/register-course}" method="post">
+                <input type="hidden" name="courseId" th:value="${course.id}">
+                <button type="submit" th:disabled="${course.availableSeats == 0}">Register</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h3>Your Registered Courses</h3>
+<table>
+    <tr>
+        <th>Course Name</th>
+        <th>Fees</th>
+    </tr>
+    <tr th:each="registration : ${registeredCourses}">
+        <td th:text="${registration.course.name}"></td>
+        <td th:text="${registration.course.fees}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

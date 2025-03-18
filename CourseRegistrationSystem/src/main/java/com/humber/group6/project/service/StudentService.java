@@ -19,4 +19,10 @@ public class StudentService {
     public void saveStudent(Student student) {
         studentRepository.save(student);
     }
+
+    public Student getFirstStudent() {
+        List<Student> students = studentRepository.findAll();
+        return students.isEmpty() ? null : students.get(0);  // ✅ Get the first student safely
+    }
+
 }
